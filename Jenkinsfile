@@ -32,7 +32,7 @@ pipeline {
                     failOnError: false,
                     masterNodeName: '',
                     paramPublish: null,
-                    publishers: [[configName: 'pplayer', 
+                    publishers: [[configName: 'adminnistrator.ru', 
                                     transfers: [[
                                         asciiMode: false, 
                                         cleanRemote: false,

@@ -13,7 +13,11 @@ import routesForApp from './routes';
 
 //var nodemon = require('nodemon');nodemon.emit('quit');
 
-mongoose.connect(config.db, (err, res)=>{
+mongoose.connect(config.db, {
+  // useMongoClient: true,
+  promiseLibrary: global.Promise
+}, 
+(err, res)=>{
   if (err){ // connection failed
     console.log('DB Connection Failed')
   }
@@ -39,4 +43,4 @@ app.get('/*', (req, res)=> {
     res.sendFile(path.join(__dirname, './dev.html'));
 })
 
-app.listen(config.port, () => console.log('Listening on 3003'));
+app.listen(config.port, () => console.log('Listening on ' + config.port));

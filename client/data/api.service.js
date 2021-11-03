@@ -16,3 +16,7 @@ export function listLists(boardId){
 export function listCards(listId){
     return axios.get('/api/card?list='+listId); 
 }
+
+export function listBoardCards(boardId){
+    return axios.get('/api/card?board='+boardId); 
+}

@@ -4,7 +4,7 @@ import classnames from 'classnames';
 export default class FormField extends Component {
 
     render() {
-        if(this.props.type=='button'){
+        if (this.props.type=='button') {
             const btnClass = 'btn '+ this.props.btnClass ;
             const linksWithButton = (this.props.links) ? this.props.links : '' ;
             return (
@@ -15,7 +15,7 @@ export default class FormField extends Component {
                 </div>                
             );        
         }
-        else if(this.props.type=='select') {
+        else if (this.props.type=='select') {
             return (
                 <div className="form-group">
                     <label>{this.props.label}</label>
@@ -29,8 +29,28 @@ export default class FormField extends Component {
                         {this.props.options}
                     </select>
                 </div>
-            );        
-        }else{
+            );
+        }
+        else if (this.props.type=='radio') {
+            return (
+                <div className="form-group">
+                    <label>{this.props.label}</label>
+                    <div className="clr"></div>
+                    {this.props.values.map((e, i) => <div key={i} className={this.props.class}><input type="radio" 
+                        className={this.props.class}
+                        name={this.props.name} 
+                        onChange={this.props.onChange}
+                        value={i}
+                        checked={this.props.value == i ? 'checked' : ''}
+                    /> &nbsp; 
+                    <label>{e}</label>
+                    &nbsp;&nbsp;&nbsp;
+                    </div>)}
+                </div>
+            );
+        }
+        else 
+        {
             return(
                 <div className={classnames("form-group", { 'has-error': this.props.errors})}>
                     <label>{this.props.label}</label>

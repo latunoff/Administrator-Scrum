@@ -12,7 +12,7 @@ class NavBarComponent extends Component {
     }
 
     render(){
-        const { isAuthenticated } = this.props.auth ; 
+        const { isAuthenticated, user } = this.props.auth ; 
 
         const userLinks = (
             <ul className="nav navbar-nav navbar-right" >
@@ -35,9 +35,15 @@ class NavBarComponent extends Component {
             <div className={classnames('navbar navbar-expand-sm bg-primary navbar-dark', {'navbar-default': !isAuthenticated,'navbar-inverse': isAuthenticated})}>
                 <div className="container-custom">
                     <div className="navbar-header">
-                        <Link to="/" className='navbar-brand'><i className="fa fa-user-circle fa-3x" aria-hidden="true"></i> Scrum Administrator</Link>
+                        <Link to="/" className='navbar-brand'><i className="fa fa-user-circle fa-3x" aria-hidden="true"></i> </Link>
                     </div>
-                    
+                </div>
+
+                <div className="container-custom">
+                    <div className="navbar-header">
+                        <Link to="/" className='navbar-brand'>Scrum Administrator</Link>
+                    </div>
+                    <div className="navbar-name">{user && user.email}</div>
                 </div>
 
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">

@@ -1,6 +1,6 @@
 {
-  "name": "adminnistrator",
-  "version": "1.1.0",
+  "name": "scrumboard",
+  "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -14,8 +14,8 @@
     "build-client": "webpack --config webpack.config.prod.js && cp -r client/assets build/public && cp server/index.html build/public/index.html"
   },
   "keywords": [],
-  "author": "Alex Latunov",
-  "license": "MIT",
+  "author": "Satyam Saxena",
+  "license": "ISC",
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-core": "^6.25.0",

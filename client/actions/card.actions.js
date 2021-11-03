@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export function createCard(data){
     return dispatch => {
-        console.log('createCard', data);
+        // console.log('createCard', data);
         return axios.post('/api/card', data);
     }
 }
@@ -13,7 +13,8 @@ export function deleteCard(id){
 }
 
 export function updateCard(id, data){
-    return dispatch => {
+    // return dispatch => 
+    {
         return axios.patch('/api/card/'+id, data)
     }
 }

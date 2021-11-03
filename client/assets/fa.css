@@ -2331,6 +2331,7 @@
     .navbar-collapse {
         border-top-color: rgba(0, 0, 0, 0.2);
         box-shadow: none;
+        justify-content: right;
     }
     .navbar .btn {
         padding-top: 6px;
@@ -2696,7 +2697,7 @@
         outline: 0;
         /*position: relative;*/ 
         overflow-y: auto;
-        height: 100%;
+        height: calc(100vh - 108px);
         padding-left: 15px;
         padding-right: 15px;
     }
@@ -2788,6 +2789,7 @@
         white-space: normal;
         -webkit-box-orient: vertical;
         -webkit-box-direction: normal;
+        overflow-y: auto;
     }
     
     .list-main .cards-list{
@@ -2834,7 +2836,8 @@
     }
     
     .card-href:hover{
-        border: 2px #ccc solid; 
+        /* border: 2px #ccc solid; */
+        border-width: 2px;
         background: #ffffff; 
     }
     .list-main .panel-body{

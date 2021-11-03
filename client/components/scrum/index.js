@@ -27,7 +27,7 @@ export default class ScrumComponent extends Component {
 
                 <AddBoardComponent onAddBoard={this.onAddBoard.bind(this)} />
                 <div className='col-md-12'>
-                    <h3>Scrum Boards</h3>
+                    <h3>Projects</h3>
                     <BoardListComponent newBoards={this.state.newBoards} />
                 </div>
                 

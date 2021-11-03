@@ -6,14 +6,14 @@ import { deleteFlashMessage } from './../../../actions/flash.messages.actions';
 class FlashMessagesComponent extends Component {
     
     render(){
-        console.log(this.props); 
+        // console.log(this.props);
         const messages = this.props.messages.map(message=>
             <FlashMessageComponent 
                 key={message.id} 
                 message={message} 
                 deleteFlashMessage={this.props.deleteFlashMessage} />
         )
-        console.log(messages);
+        // console.log(messages);
         return(
             <div>{messages}</div>
         );

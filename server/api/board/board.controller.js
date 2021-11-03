@@ -1,5 +1,7 @@
 import Promise from 'bluebird' ;
 import Board from './board.model';
+import List from '../list/list.model';
+import Card from '../card/card.model';
 import isEmpty from 'lodash/isEmpty'; 
 
 let controller = {} ; 
@@ -28,7 +30,15 @@ controller.delete = (req, res) => {
     console.log('DB Board delete', req.body);
     return Board.deleteOne(req.body)
         .then(board => {
-            return res.status(200).json({success: true});
+            List.remove({boardId: req.body._id})
+            .then(data => {
+                // console.log(data);
+                Card.remove({boardId: req.body._id})
+                .then(data => {
+                    // console.log(data);
+                    return res.status(200).json({success: true});
+                });
+            });
         })
         .catch(err=>{
             console.log(err); 

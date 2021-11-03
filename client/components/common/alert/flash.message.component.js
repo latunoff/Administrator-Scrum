@@ -6,7 +6,7 @@ class FlashMessageComponent extends Component {
   constructor(props) {
     super(props);
     this.onClick = this.onClick.bind(this);
-    console.log(props); 
+    // console.log(props);
   }
 
   onClick() {

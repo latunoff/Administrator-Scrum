@@ -8,7 +8,8 @@ class AddCardComponent extends Component{
         super(props);
         this.state = {
             cardName: '', 
-            cardDesc: '', 
+            cardDesc: '',
+            priority: 0,
             listId: props.listId, 
             boardId: props.boardId,
             errors: {}, 
@@ -25,10 +26,10 @@ class AddCardComponent extends Component{
 
     onSubmit(e){
         e.preventDefault();
-        console.log('onSubmit');
+        // console.log('onSubmit');
         this.props.createCard(this.state).then(
             
-            res => { this.props.reloadCards(); console.log('then');},
+            res => { this.props.reloadCards(); },
             err => this.setState({ errors: err.response.data.errors })
         );
     }
@@ -45,17 +46,24 @@ class AddCardComponent extends Component{
                             onChange={this.onChange}
                             errors={this.state.errors.cardName}
                             required='required'
-                            placeholder='New card...'
+                            placeholder='New card name...'
                             autofocus={true}
                             />
-                        <FormField 
-                            type='text' 
+                        <textarea 
+                            className='form-control' 
                             name='cardDesc' 
-                            value={this.state.cardDesc} 
+                            value={this.state.cardDesc}
                             onChange={this.onChange}
-                            errors={this.state.errors.cardDesc}
-                            placeholder='Card description'
-                            />
+                            placeholder='Card description...'></textarea>
+                        <FormField 
+                            type='radio'
+                            label='Priority'
+                            name='priority'
+                            onChange={this.onChange}
+                            value={this.state.priority}
+                            values={['Low', 'Mid', 'High']}
+                            class='left'
+                        />
                         <FormField 
                             label='Add' 
                             type='button'

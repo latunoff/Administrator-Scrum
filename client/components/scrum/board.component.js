@@ -4,6 +4,7 @@ import { listOneBoard } from './../../data/api.service';
 import { connect } from 'react-redux'; 
 import { setCurrentBoard } from './../../actions/board.actions'; 
 import Confirm from '../common/confirm/confirm.component';
+import BoardModifyComponent from './board.modify.component';
 
 class BoardComponent extends Component{
     constructor(props){
@@ -11,7 +12,8 @@ class BoardComponent extends Component{
 
         this.state = {
             boardInfo: {},
-            boardId: props.match.params.id
+            boardId: props.match.params.id,
+            editing: false
         }
     }
 
@@ -31,6 +33,11 @@ class BoardComponent extends Component{
     deleteBoard(){
         console.log('deleteBoard', this);
     }
+
+    onEdit(e){
+        e.preventDefault();
+        this.setState({ editing: !this.state.editing });
+    }
     
     render(){
         return (
@@ -38,20 +45,27 @@ class BoardComponent extends Component{
                 <div className='board-content-wrap'>
                     <div className='board-content-full'>
                         <div className='b-header'>
-                            <h2 className="appear">{this.state.boardInfo.boardName}</h2>
+                            <h2 className="appear left">{this.state.boardInfo.boardName}</h2>
                             <div className='right'>
+                                <i className="fa fa-edit fa-2x pointer blue" aria-hidden="true" onClick={this.onEdit.bind(this)} title="Edit Project"></i>
+                                &nbsp;&nbsp;&nbsp;
                                 <Confirm
                                     onConfirm={this.deleteBoard.bind(this)}
-                                    body="Are you sure you want to delete Board?"
+                                    body="Are you sure you want to delete Task?"
                                     confirmText="Delete"
                                     className="show"
                                     dialogClassName=""
                                     backdrop={true}
                                     title="Delete Board">
-                                    <i className="fa fa-trash fa-2x pointer" aria-hidden="true" title="Delete Board"></i>
+                                    <i className="fa fa-trash fa-2x pointer" aria-hidden="true" title="Delete Task"></i>
                                 </Confirm>
                             </div>
                         </div>
+                        {this.state.editing && 
+                        <BoardModifyComponent 
+                            boardInfo={this.state.boardInfo} 
+                            showModal={this.state.editing}
+                        />}
                         <div className='b-container'>
                             <ListsComponent boardId={this.state.boardId}/>                            
                         </div>

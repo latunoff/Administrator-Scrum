@@ -26,8 +26,10 @@ class AddListComponent extends Component{
         const listInfo = this.state; 
 
         const { boardInfo, createList } = this.props; 
-        listInfo.boardId = boardInfo._id; 
-        createList(this.state).then(
+        listInfo.boardId = boardInfo._id;
+        listInfo.cardsOrder = 1;
+        // console.log(listInfo);
+        createList(listInfo).then(
             res => {
                 this.context.router.history.push('/board/'+boardInfo._id)
             },            

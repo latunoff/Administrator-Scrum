@@ -36,8 +36,12 @@ controller.delete = (req, res) => {
 }
 
 controller.getAll = (req, res) => {
-
-    return Card.findAsync({user: req.user.id, listId: req.query.list })
+    // console.log('getAll', req.query);
+    let request = {};
+    if (req.query.board) request = {user: req.user.id, boardId: req.query.board };
+    else request = {user: req.user.id, listId: req.query.list };
+    
+    return Card.findAsync(request, null, {sort: {dateCreated: 1}})
         .then(cards=>{
             return res.status(200).json({success: true, cards: cards});
         })
@@ -61,7 +65,7 @@ controller.getOne = (req, res) => {
 }
 
 controller.updateOne = (req, res) => {
-
+    delete req.body._id;    // overwise 'exception: Mod on _id not allowed'
     Card.findByIdAndUpdate(req.params.id, req.body, {new:true}, function(err, card){
 			if (err){
 				console.log(err); 

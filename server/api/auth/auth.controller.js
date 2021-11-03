@@ -14,6 +14,7 @@ controller.login = (req,res) => {
                 if(bcrypt.compareSync(password, user.hashedPassword)){
                     const token = jwt.sign({
                         id: user._id, 
+                        email,
                         role: user.role
                     }, config.jwtSecret);
 

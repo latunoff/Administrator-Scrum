@@ -26,9 +26,12 @@ class AddBoardComponent extends Component{
 
     onSubmit(e){
         e.preventDefault();
-        this.props.createBoard(this.state).then(
+        this.props.createBoard(this.state)
+        .then(
             res => {
-                this.props.onAddBoard(this.state);
+                // console.log('result', res);
+                // console.log('this.state', this.state);
+                this.props.onAddBoard(res.data.board);
                 this.setState({ boardName: '' });
                 //this.context.router.history.push('/board/'+res.data.board._id),
             },
@@ -51,7 +54,7 @@ class AddBoardComponent extends Component{
                         onChange={this.onChange}
                         errors={this.state.errors.boardName}
                         required='required'
-                        placeholder='New board...' />
+                        placeholder='New project...' />
                     
                     <FormField 
                         label='Add' 

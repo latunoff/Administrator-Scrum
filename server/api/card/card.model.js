@@ -12,6 +12,7 @@ const CardSchema = new Schema({
     lastUpdated: Date, 
     dueDate: Date, 
     cardDesc: String, 
+    priority: { type: Number, default: 0 },
     isDeleted: { type: Boolean, default: false }, 
     members: { type: [{type: Schema.Types.ObjectId,ref: 'User'}],	index: true	}, 
     activityLog: [

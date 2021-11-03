@@ -11,7 +11,8 @@ class BoardListComponent extends Component{
         super(props);
         this.state = {
             boards: [],
-            loading: true
+            loading: true,
+            editing: false
         }
         
     }
@@ -31,7 +32,7 @@ class BoardListComponent extends Component{
         //console.log('onDeleteBoard', id , this);
         deleteBoard({_id: id}).then(
             res => {
-                //console.log(res.data);
+                console.log(res.data);
                 const boards = this.state.boards.filter((i) => i._id != id);
                 this.setState({ boards });
                 //this.setState({boards: res.data.boards});
@@ -43,15 +44,22 @@ class BoardListComponent extends Component{
         );
     }
 
+    onEdit(e){
+        e.preventDefault();
+        this.setState({ editing: !this.state.editing });
+    }
+
     render(){
         const boards = [...this.state.boards, ...this.props.newBoards].reverse().map((board, i)=>{
 
             return (
                 <tr key={i}>
                     <td><Link to={'/board/'+board._id} >{board.boardName}</Link></td>
-                    <td>{board.boardType}</td>
                     <td>{moment(board.dateCreated).format('LLL')}</td>
-                    <td>{board.noOfLists}</td>
+                    {/* <td>{board.noOfLists}</td> */}
+                    <td>
+                        {/* <i className="fa fa-edit pointer left blue" aria-hidden="true" onClick={this.onEdit.bind(this)}></i> */}
+                    </td>
                     <td>
                         <Confirm
                             onConfirm={this.onDeleteBoard.bind(this, board._id)}
@@ -75,13 +83,15 @@ class BoardListComponent extends Component{
             <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Type</th>
                     <th>Created</th>
-                    <th>Lists</th>
+                    {/* <th>Lists</th> */}
+                    <th></th>
                     <th></th>
                 </tr>
             </thead>
-            <tbody>{this.state.loading ? <Preloader /> : boards}</tbody>
+            <tbody>
+                {this.state.loading ? <Preloader /> : boards}
+            </tbody>
         </table>
 
         )

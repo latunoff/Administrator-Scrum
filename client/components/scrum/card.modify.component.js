@@ -5,7 +5,8 @@ import Datetime from 'react-datetime' ;
 import { listLists } from './../../data/api.service'; 
 import FormField from './../common/form.field'; 
 import { connect } from 'react-redux'; 
-import { updateCard } from './../../actions/card.actions'; 
+import { updateCard } from './../../actions/card.actions';
+import moment from 'moment';
 
 class CardModifyComponent extends Component{
     constructor(props){
@@ -40,7 +41,7 @@ class CardModifyComponent extends Component{
 
     close() {
         this.setState({ showModal: false });
-        this.props.reloadCard()
+        this.props.reloadCard();
     }
 
     open() {
@@ -55,28 +56,26 @@ class CardModifyComponent extends Component{
 
     onSubmit(e){
         e.preventDefault();
-        this.saveCard(true); 
+        this.saveCard(true);
+        this.close();
     }
 
     onSubmitName(e){
-        e.preventDefault(); 
+        e.preventDefault();
         //console.log(this.state.cardInfo);
-        this.setState({clickedName:false}); 
-        this.saveCard(); 
-        
+        this.setState({clickedName:false});
+        this.saveCard();
     }
 
     saveCard(redirect=false){
-        const { cardInfo } = this.state ; 
-        this.props.updateCard(cardInfo._id, cardInfo).then(
-            res=>{
-                if(redirect){
-                    this.context.router.history.push('/board/'+cardInfo.boardId)
-                }
+        const { cardInfo } = this.state;
+        updateCard(cardInfo._id, cardInfo)
+        .then(
+            res => {
+                this.props.reloadCard();
             }, 
-            err=>{}
+            err => {}
         )
-
     }
 
     editName(e){
@@ -84,12 +83,12 @@ class CardModifyComponent extends Component{
     }
 
     dueDateChange(newDate){
-       // e.preventDefault(); 
-       //console.log(newDate._d);
+        // e.preventDefault(); 
+        //    console.log(newDate._d);
         let newCardInfo = Object.assign({}, this.state.cardInfo); 
         newCardInfo['dueDate'] = new Date(newDate._d);
         this.setState({cardInfo: newCardInfo});
-        this.saveCard()
+        // this.saveCard();
     }
 
     render(){        
@@ -100,7 +99,7 @@ class CardModifyComponent extends Component{
 
         return (
             <Modal show={this.state.showModal} onHide={this.close} className="show">
-            <Modal.Header closeButton>
+            <Modal.Header>
                 
                     {!this.state.clickedName && <h4 onClick={this.editName.bind(this)}>{this.state.cardInfo.cardName}</h4> }
                     {this.state.clickedName && <form onSubmit={this.onSubmitName.bind(this)}>
@@ -125,7 +124,15 @@ class CardModifyComponent extends Component{
                         onChange={this.onChange}
                         value={this.state.cardInfo.listId}
                         options={optionLists}
-                        />
+                    />
+                    <div className='form-group'>
+                        <label>Name</label>
+                        <input 
+                            className='form-control' 
+                            name='cardName' 
+                            value={this.state.cardInfo.cardName}
+                            onChange={this.onChange} />
+                    </div>
                     <div className='form-group'>
                         <label>Description</label>
                         <textarea 
@@ -137,15 +144,23 @@ class CardModifyComponent extends Component{
                     <div className='form-group'>
                         <label>Due Date</label>
                         <Datetime 
-                            value={this.state.cardInfo.dueDate} 
+                            value={moment(this.state.cardInfo.dueDate).format('L LT')}
                             onChange={this.dueDateChange.bind(this)}/>
                     </div>
                     <FormField 
+                        type='radio'
+                        label='Priority'
+                        name='priority'
+                        onChange={this.onChange}
+                        value={this.state.cardInfo.priority}
+                        values={['Low', 'Mid', 'High']}
+                        class='left'
+                    />
+                    <FormField 
                         label='Save' 
                         type='button'
-                        btnClass='btn-primary'
-                        />
-
+                        btnClass='btn-primary right'
+                    />
                 </form>
             </Modal.Body>
             <Modal.Footer>

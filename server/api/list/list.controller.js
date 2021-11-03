@@ -1,5 +1,6 @@
 import Promise from 'bluebird' ;
 import List from './list.model';
+import Card from '../card/card.model';
 import isEmpty from 'lodash/isEmpty'; 
 import Board from './../board/board.model'; 
 
@@ -31,9 +32,24 @@ controller.create = (req, res) => {
     }
 }
 
-controller.getAll = (req, res) => {
+controller.delete = (req, res) => {
+    // console.log('delete', req.params);
+    return List.deleteOne({_id: req.params.id})
+        .then(data => {
+            Card.remove({listId: req.params.id})
+            .then(data => {
+                // console.log(data);
+                return res.status(200).json({success: true});
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            return res.status(500).json({errors: {form: 'Some Problem Occured'}});
+        })
+}
 
-    return List.findAsync({user: req.user.id, boardId: req.query.board })
+controller.getAll = (req, res) => {
+    return List.findAsync({user: req.user.id, boardId: req.query.board }, null, {sort: {dateCreated: 1}})
         .then(lists=>{
             return res.status(200).json({success: true, lists: lists});
         })
@@ -43,9 +59,7 @@ controller.getAll = (req, res) => {
         })
 }
 
-
 controller.getOne = (req, res) => {
-
     return List.findByIdAsync(req.params.id)
         .then(list=>{
             return res.status(200).json({success: true, list: list});
@@ -54,6 +68,19 @@ controller.getOne = (req, res) => {
             console.log(err); 
             return res.status(500).json({errors: {form: 'Some Problem Occured'}}) ;    
         })
+}
+
+controller.updateOne = (req, res) => {
+    console.log('updateOne List', req.body);
+    delete req.body._id;    // overwise 'exception: Mod on _id not allowed'
+    List.findByIdAndUpdate(req.params.id, req.body, {new:true}, function(err, list){
+			if (err){
+				console.log(err); 
+                return res.status(500).json({errors: {form: 'Some Problem Occured'}}) ;    
+			}
+
+			return res.status(200).json({success: true, list: list});
+		})
 }
 
 

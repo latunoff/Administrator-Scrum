@@ -17,7 +17,6 @@ const AppRoutes = () => (
       <Route path='/forgot-password' component={ForgotPasswordComponent} />
       <Route path='/scrum' component={AuthenticateComponent(ScrumComponent)} />
       <Route path='/board/:id' component={AuthenticateComponent(BoardComponent)} />
-      
   </Switch>
 )
 

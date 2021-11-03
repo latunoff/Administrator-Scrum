@@ -7,7 +7,7 @@
     "start": "node index.js",
     "dev": "nodemon --watch server --exec babel-node -- server/dev.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "clean": "del build /s /q && mkdir build",
+    "clean": "rm -rf build /s /q && mkdir build",
     "build-server": "babel -d ./build ./server",
     "build": "npm run clean && npm run build-server && npm run build-client",
     "start-s": "node --debug ./build/index.js",

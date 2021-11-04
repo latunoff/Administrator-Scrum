@@ -1,6 +1,6 @@
 import Promise from 'bluebird' ;
 import User from './user.model';
-import bcrypt from 'bcrypt' ; 
+import bcrypt from 'bcryptjs' ; 
 import commonValidations from './../../shared/validations/signup'; 
 import isEmpty from 'lodash/isEmpty'; 
 

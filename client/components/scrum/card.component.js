@@ -57,9 +57,11 @@ class CardComponent extends Component{
                             title={"Delete task " + this.props.cardInfo.cardName}>
                             <i className="fa fa-trash fa-2x pointer red right" aria-hidden="true" title="Delete task"></i>
                         </Confirm>
-                        <div className='text-primary'>{moment(this.props.cardInfo.dateCreated).format('LLL')}</div>
                         {this.props.cardInfo.dueDate && 
-                            <div className={moment(this.props.cardInfo.dueDate).format('x') > Date.now() ? 'text-warning' : 'text-danger'}>{moment(this.props.cardInfo.dueDate).format('LLL')}</div>}
+                            <div className={moment(this.props.cardInfo.dueDate).format('x') > Date.now() ? 'text-warning' : 'text-danger'}>
+                                {moment(this.props.cardInfo.dueDate).format('LLL')}</div>
+                        }
+                        <div className='text-muted'>{moment(this.props.cardInfo.dateCreated).format('LLL')}</div>
                     </div>
                 </div>
                 {this.state.editCard && 

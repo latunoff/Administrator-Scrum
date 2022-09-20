@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
+
 import { createCard } from './../../actions/card.actions';
 import FormField from './../common/form.field';
+import Datetime from 'react-datetime' ;
+
 
 class AddCardComponent extends Component{
     constructor(props){
@@ -18,25 +22,33 @@ class AddCardComponent extends Component{
         this.onChange = this.onChange.bind(this) ;
         this.onSubmit = this.onSubmit.bind(this) ;
     }
-    onChange(e){
+
+    onChange(e) {
         this.setState({
             [e.target.name] : e.target.value
         })
     }
 
-    onSubmit(e){
+    dueDateChange(newDate){
+        // e.preventDefault(); 
+        // console.log(newDate._d);
+        this.setState({ dueDate: new Date(newDate._d) });
+    }
+
+    onSubmit(e) {
         e.preventDefault();
-        // console.log('onSubmit');
+        // console.log('onSubmit', this.state);
         this.props.createCard(this.state).then(
-            
-            res => { this.props.reloadCards(); },
+            res => { 
+                console.log('res', res);
+                this.props.reloadCards();
+            },
             err => this.setState({ errors: err.response.data.errors })
         );
     }
 
-    render(){
+    render() {
         return (
-            
                 <div className='card-details'>
                     <form onSubmit={this.onSubmit}>
                         <FormField 
@@ -48,13 +60,20 @@ class AddCardComponent extends Component{
                             required='required'
                             placeholder='New card name...'
                             autofocus={true}
-                            />
+                        />
+                        <div className='form-group'>
+                            {/* <label>Due Date</label> */}
+                            <Datetime 
+                                value={this.state.dueDate}
+                                onChange={this.dueDateChange.bind(this)}/>
+                        </div>
                         <textarea 
                             className='form-control' 
                             name='cardDesc' 
                             value={this.state.cardDesc}
                             onChange={this.onChange}
-                            placeholder='Card description...'></textarea>
+                            placeholder='Card description...'>
+                        </textarea>
                         <FormField 
                             type='radio'
                             label='Priority'
@@ -71,7 +90,8 @@ class AddCardComponent extends Component{
                             loading={this.state.isLoading}
                             disabledItems={this.state.isLoading} 
                             />
-                    </form> 
+                    </form>
+                    <br /><br /><br /><br /><br />
                 </div>
             
         )

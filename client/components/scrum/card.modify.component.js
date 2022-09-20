@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Modal from 'react-bootstrap/lib/Modal';
 import Button from 'react-bootstrap/lib/Button';
-import Datetime from 'react-datetime' ;
+import Datetime from 'react-datetime';
 import { listLists } from './../../data/api.service'; 
 import FormField from './../common/form.field'; 
 import { connect } from 'react-redux'; 
@@ -134,18 +134,18 @@ class CardModifyComponent extends Component{
                             onChange={this.onChange} />
                     </div>
                     <div className='form-group'>
+                        <label>Due Date</label>
+                        <Datetime 
+                            value={moment(this.state.cardInfo.dueDate).format('L LT')}
+                            onChange={this.dueDateChange.bind(this)}/>
+                    </div>
+                    <div className='form-group'>
                         <label>Description</label>
                         <textarea 
                             className='form-control' 
                             name='cardDesc' 
                             value={this.state.cardInfo.cardDesc}
                             onChange={this.onChange}></textarea>
-                    </div>
-                    <div className='form-group'>
-                        <label>Due Date</label>
-                        <Datetime 
-                            value={moment(this.state.cardInfo.dueDate).format('L LT')}
-                            onChange={this.dueDateChange.bind(this)}/>
                     </div>
                     <FormField 
                         type='radio'

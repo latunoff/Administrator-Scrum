@@ -91,9 +91,9 @@ class ListComponent extends Component{
 
     }
 
-    render(){
-        const cardsInLIst = this.state.cards.map((card,i)=>{
-            return(
+    render() {
+        const cardsInLIst = this.state.cards.map((card, i) => {
+            return (
                 <CardComponent 
                     cardInfo={card} 
                     key={i} 
@@ -103,6 +103,8 @@ class ListComponent extends Component{
                 />
             );
         });
+        cardsInLIst.sort((a, b) => new Date(a.props.cardInfo.dueDate).getTime() < new Date(b.props.cardInfo.dueDate).getTime() ? -1 : 1);
+        // console.log('cardsInLIst', cardsInLIst);
         if (this.state.listInfo.cardsOrder === -1) {
             cardsInLIst.reverse();
         }

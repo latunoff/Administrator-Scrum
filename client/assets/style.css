@@ -41,6 +41,12 @@ table.table a {
     /* border: none; */
     box-shadow: gray 0 2px 3px ;
 }
+.panel-heading__length {
+    /* float: left; */
+    position: absolute;
+    top: 30px;
+    left: 50%;
+}
 
 .appear { opacity: 0; transition:opacity 1.1s linear; }
 .appear.show { opacity: 1; }

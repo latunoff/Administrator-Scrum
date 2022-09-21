@@ -58,8 +58,9 @@ class CardComponent extends Component{
                             <i className="fa fa-trash fa-2x pointer red right" aria-hidden="true" title="Delete task"></i>
                         </Confirm>
                         {this.props.cardInfo.dueDate && 
-                            <div className={moment(this.props.cardInfo.dueDate).format('x') > Date.now() ? 'text-warning' : 'text-danger'}>
-                                {moment(this.props.cardInfo.dueDate).format('LLL')}</div>
+                            <div className={ moment(this.props.cardInfo.dueDate).format('x') > moment(Date.now()).add(1, 'days') ? 'text-primary' :
+                                (moment(this.props.cardInfo.dueDate).format('x') > Date.now() ? 'text-warning' : 'text-danger') }>
+                                {moment(this.props.cardInfo.dueDate).format('ddd, LL, HH:mm')}</div>
                         }
                         <div className='text-muted'>{moment(this.props.cardInfo.dateCreated).format('LLL')}</div>
                     </div>

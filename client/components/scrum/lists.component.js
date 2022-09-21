@@ -50,14 +50,14 @@ class ListsComponent extends Component{
         listBoardCards(this.state.boardId)
         .then(
             res => {
-                console.log('reloadCards', res.data.cards);
+                // console.log('reloadCards', res.data.cards);
                 this.setState({
                     cards: res.data.cards,
                     lists: this.state.lists
                 });
                 this.cardsAll = res.data.cards.splice(0);
                 this.search(null, this.state.searchText);
-                console.log(this.state.searchText);
+                // console.log(this.state.searchText);
             },
             err1 => this.setState({ errors: err1.response.data.errors })
         );

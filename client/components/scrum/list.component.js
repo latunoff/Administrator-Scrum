@@ -126,6 +126,7 @@ class ListComponent extends Component{
                             <i className="fa fa-trash fa-1x pointer red right" aria-hidden="true" title="Delete list"></i>
                         </Confirm>
                     </div>
+                    <div className='panel-heading__length'>{ cardsInLIst.length }</div>
                     {!this.state.clickedName && <h4>{this.props.listInfo.listName}</h4> }
                     {this.state.clickedName && <form onSubmit={this.onSubmitName.bind(this)}>
                         <div className='form-group head-group'>

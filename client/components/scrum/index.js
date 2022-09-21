@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import AddBoardComponent from './addboards.component';
 import BoardListComponent from './board.list.component';
-import moment from 'moment';
 
 export default class ScrumComponent extends Component {
     constructor(){

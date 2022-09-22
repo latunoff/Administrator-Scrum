@@ -163,7 +163,7 @@ class ListComponent extends Component{
                             {cardsInLIst}
                         {this.state.listInfo.cardsOrder === 1 &&
                         <a href="#" className='pull-right' onClick={this.addNewCard.bind(this)} title="Add Card">
-                            <i className={!this.state.addNewCard ? "fa fa-plus fa-2x" : "fa fa-minus fa-2x"} aria-hidden="true"></i>
+                            <i className={!this.state.addNewCard ? "fa fa-plus fa-2x" : "fa fa-minus fa-2x"} aria-hidden="true"></i><br /><br />
                         </a>}
                         {this.state.addNewCard && this.state.listInfo.cardsOrder === 1 &&
                             <AddCardComponent 

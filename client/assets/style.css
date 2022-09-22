@@ -11,6 +11,10 @@
 .navbar ul.nav li {
     text-align: center;
 }
+.navbar-header__date {
+    font-size: 12px;
+    color: white;
+}
 .page-header {
     padding: 10px;
 }
@@ -40,6 +44,7 @@ table.table a {
     border: rgb(219, 211, 211) 1px solid;
     /* border: none; */
     box-shadow: gray 0 2px 3px ;
+    margin-bottom: 7px;
 }
 .panel-heading__length {
     /* float: left; */

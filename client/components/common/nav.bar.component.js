@@ -4,15 +4,29 @@ import { connect } from 'react-redux';
 import { logout } from './../../actions/auth.actions'; 
 import classnames from 'classnames'; 
 import NavLinkLi from './navlink.component'; 
+import moment from 'moment';
 
 class NavBarComponent extends Component {
-    logout(e){
+    constructor() {
+        super();
+        this.state = {
+            currentDate: moment().format('ddd, LL, HH:mm')
+        }
+    }
+
+    componentDidMount() {
+        setInterval(() => this.setState({ 
+            currentDate: moment().format('ddd, LL, HH:mm') 
+        }), 1000 * 60);
+    }
+
+    logout(e) {
         e.preventDefault();
         this.props.logout(); 
     }
 
-    render(){
-        const { isAuthenticated, user } = this.props.auth ; 
+    render() {
+        const { isAuthenticated, user } = this.props.auth; 
 
         const userLinks = (
             <ul className="nav navbar-nav navbar-right" >
@@ -28,8 +42,7 @@ class NavBarComponent extends Component {
             </ul>
         );
 
-
-
+        // let currentDate = moment().format('ddd, LL, HH:mm');
 
         return (
             <div className={classnames('navbar navbar-expand-sm bg-primary navbar-dark', {'navbar-default': !isAuthenticated,'navbar-inverse': isAuthenticated})}>
@@ -42,8 +55,9 @@ class NavBarComponent extends Component {
                 <div className="container-custom">
                     <div className="navbar-header">
                         <Link to="/" className='navbar-brand'>Scrum Administrator</Link>
+                        <div className="navbar-name">{user && user.email}</div>
+                        <div className='navbar-header__date'>{ this.state.currentDate }</div>
                     </div>
-                    <div className="navbar-name">{user && user.email}</div>
                 </div>
 
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -58,7 +72,7 @@ class NavBarComponent extends Component {
 }
 
 NavBarComponent.propTypes = {
-    auth: React.PropTypes.object.isRequired , 
+    auth: React.PropTypes.object.isRequired, 
     logout: React.PropTypes.func.isRequired
 }
 
@@ -68,4 +82,4 @@ function mapStateToProps(state){
     }
 }
 
-export default connect(mapStateToProps, { logout })(NavBarComponent) ;
+export default connect(mapStateToProps, { logout })(NavBarComponent);

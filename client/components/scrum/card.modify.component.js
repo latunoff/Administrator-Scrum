@@ -84,11 +84,10 @@ class CardModifyComponent extends Component{
 
     dueDateChange(newDate){
         // e.preventDefault(); 
-        //    console.log(newDate._d);
+        // console.log(newDate._d);
         let newCardInfo = Object.assign({}, this.state.cardInfo); 
         newCardInfo['dueDate'] = new Date(newDate._d);
         this.setState({cardInfo: newCardInfo});
-        // this.saveCard();
     }
 
     render(){        
@@ -137,6 +136,7 @@ class CardModifyComponent extends Component{
                         <label>Due Date</label>
                         <Datetime 
                             value={moment(this.state.cardInfo.dueDate).format('L LT')}
+                            timeFormat={true}
                             onChange={this.dueDateChange.bind(this)}/>
                     </div>
                     <div className='form-group'>
